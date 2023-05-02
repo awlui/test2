@@ -35,7 +35,7 @@ jobs:
 
       - name: test
         id: test
-        run: which /user/libexec/PlistBuddy
+        run: cd /usr/libexec && ls
 
       - name: Get bundle version
         id: version
