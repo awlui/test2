@@ -52,7 +52,7 @@ jobs:
         run: npx detox build --configuration ios.sim.release
 
       - name: cd
-        run: cd /Users/runner/work/_temp && ls
+        run: cd /ios && ls
 
       - name: check file
         run: file ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
