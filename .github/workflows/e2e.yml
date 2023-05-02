@@ -51,6 +51,12 @@ jobs:
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration ios.sim.release
 
+      - name: cd
+        run: cd ios && ls
+
+      - name: cd2
+        run: cd build/Build/Products && ls
+
       - name: check file
         run: file ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
 
