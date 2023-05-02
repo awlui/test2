@@ -33,6 +33,10 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
+      - name: Setup Cocoapods
+        working-directory: apps/gather-react-native
+        run: npm run setup
+
       # - name: Get bundle version
       #   id: version
       #   run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
@@ -46,9 +50,6 @@ jobs:
 
       # - name: ls
       #   run: ls
-
-      - name: ls
-        run: ls
 
       - name: Generate iOS Simulator build
         run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
