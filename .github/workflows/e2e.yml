@@ -48,13 +48,7 @@ jobs:
       #   run: ls
 
       - name: Generate iOS Simulator build
-        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
-
-      - name: ls
-        run: ls
-
-      - name: cd
-        run: cd ios && ls
+        run: npx detox build --configuration ios.sim.release
 
       # - name: cd
       #   run: cd /ios && ls
