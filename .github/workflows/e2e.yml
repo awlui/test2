@@ -34,7 +34,6 @@ jobs:
           bundler-cache: true
 
       - name: Setup Cocoapods
-        working-directory: apps/gather-react-native
         run: npm run setup
 
       # - name: Get bundle version
