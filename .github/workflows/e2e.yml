@@ -13,31 +13,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.10.0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.10.0
 
-      # - name: Install JS dependencies
-      #   env:
-      #     JOBS: 'MAX'
-      #   run: yarn install --immutable
+      - name: Install JS dependencies
+        env:
+          JOBS: 'MAX'
+        run: yarn install --immutable
 
-      # - name: Install apple simulator
-      #   run: |
-      #     brew tap wix/brew
-      #     brew install applesimutils
+      - name: Install apple simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
 
-      # - name: Setup ruby
-      #   uses: ruby/setup-ruby-pkgs@v1
-      #   with:
-      #     ruby-version: '2.7.5'
-      #     bundler-cache: true
-
-      - name: pwd
-        run: pwd
-
-      - name: ls
-        run: ls
+      - name: Setup ruby
+        uses: ruby/setup-ruby-pkgs@v1
+        with:
+          ruby-version: '2.7.5'
+          bundler-cache: true
 
       - name: Get bundle version
         id: version
@@ -47,13 +41,13 @@ jobs:
         id: cached-native-build
         uses: actions/cache@v3
         with:
-          path: ios/build/Build/Products/Release-iphonesimulator/gather.app
+          path: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
           key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
 
-      # - name: Generate iOS Simulator build
-      #   working-directory: apps/gather-react-native
-      #   if: steps.cached-native-build.outputs.cache-hit != 'true'
-      #   run: npm run e2e:build:ios
+      - name: Generate iOS Simulator build
+        working-directory: apps/gather-react-native
+        if: steps.cached-native-build.outputs.cache-hit != 'true'
+        run: npx detox build --configuration ios.sim.release
 
       # - name: Swap JS Bundle and assets
       #   working-directory: apps/gather-react-native
