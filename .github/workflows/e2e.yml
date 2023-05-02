@@ -33,6 +33,12 @@ jobs:
       #     ruby-version: '2.7.5'
       #     bundler-cache: true
 
+      - name: pwd
+        run: pwd
+
+      - name: ls
+        run: ls
+
       - name: Get bundle version
         id: version
         run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
