@@ -17,10 +17,10 @@ jobs:
         with:
           node-version: 16.10.0
 
-      - name: Install JS dependencies
-        env:
-          JOBS: 'MAX'
-        run: yarn install --immutable
+      # - name: Install JS dependencies
+      #   env:
+      #     JOBS: 'MAX'
+      #   run: yarn install --immutable
 
       - name: Install apple simulator
         run: |
@@ -33,12 +33,16 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
+      - name: Get bundle version
+        id: version
+        run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/Info.plist)" >> $GITHUB_OUTPUT
+
       - name: Cache Native Build
         id: cached-native-build
         uses: actions/cache@v3
         with:
           path: ios/build/Build/Products/Release-iphonesimulator/gather.app
-          key: ios-bundle-v$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/gather/Info.plist)
+          key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
 
       # - name: Generate iOS Simulator build
       #   working-directory: apps/gather-react-native
