@@ -1,0 +1,69 @@
+name: Build and test iOS App
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-ios-app:
+    runs-on: macos-12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.10
+
+      - name: Install JS dependencies
+        env:
+          JOBS: 'MAX'
+        run: MEDIASOUP_WORKER_BIN=skip yarn install --immutable
+
+      - name: Install apple simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+
+      - name: Setup ruby
+        uses: ruby/setup-ruby-pkgs@v1
+        with:
+          ruby-version: '2.7.5'
+          bundler-cache: true
+
+      - name: Setup Cocoapods
+        run: npm run setup
+
+      - name: Cache Native Build
+        id: cached-native-build
+        uses: actions/cache@v3
+        with:
+          path: ios/build/Build/Products/Release-iphonesimulator/gather.app
+          key: ios-bundle-v$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/gather/Info.plist)
+
+      # - name: Generate iOS Simulator build
+      #   working-directory: apps/gather-react-native
+      #   if: steps.cached-native-build.outputs.cache-hit != 'true'
+      #   run: npm run e2e:build:ios
+
+      # - name: Swap JS Bundle and assets
+      #   working-directory: apps/gather-react-native
+      #   run: |
+      #     if [[ -f ios/build/Build/Products/Release-iphonesimulator/gather.app/main.jsbundle ]]; then
+      #       echo "$FILE exists!"
+      #     else
+      #       npm run build:compile
+      #       cp /tmp/output.bundle ios/build/Build/Products/Release-iphonesimulator/gather.app/main.jsbundle
+      #       cp /tmp/output.assets/assets ios/build/Build/Products/Release-iphonesimulator/gather.app/assets
+      #     fi
+
+      # - name: Run E2E
+      #   working-directory: apps/gather-react-native
+      #   run: npm run e2e:test:ios
+
+      # - name: Cleanup JS Bundle
+      #   working-directory: app/gather-react-native/ios/build/Build/Products/Release-iphonesimulator/gather.app
+      #   if: steps.cached-native-build.outputs.cache-hit != 'true'
+      #   run: rm -rf main.jsbundle assets
