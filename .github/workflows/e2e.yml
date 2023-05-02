@@ -44,6 +44,9 @@ jobs:
           path: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
           key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
 
+      - name: check file
+        run: file ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
+
       - name: Generate iOS Simulator build
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration ios.sim.release
