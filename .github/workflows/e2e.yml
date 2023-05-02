@@ -55,7 +55,7 @@ jobs:
         run: cd ios && ls
 
       - name: cd2
-        run: cd build/Build/Products && ls
+        run: cd YourAwesomeProject && ls
 
       - name: check file
         run: file ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
