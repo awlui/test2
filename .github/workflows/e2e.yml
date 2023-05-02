@@ -13,34 +13,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: print
-        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
+        # - uses: actions/setup-node@v3
+        with:
+          node-version: 16.10.0
 
-      - name: print2
-        run: ls
+      - name: Install JS dependencies
+        env:
+          JOBS: 'MAX'
+        run: yarn install --immutable
 
-      - name: e
-        run: cd ios && ls
+      - name: Install apple simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
 
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.10.0
-
-      # - name: Install JS dependencies
-      #   env:
-      #     JOBS: 'MAX'
-      #   run: yarn install --immutable
-
-      # - name: Install apple simulator
-      #   run: |
-      #     brew tap wix/brew
-      #     brew install applesimutils
-
-      # - name: Setup ruby
-      #   uses: ruby/setup-ruby-pkgs@v1
-      #   with:
-      #     ruby-version: '2.7.5'
-      #     bundler-cache: true
+      - name: Setup ruby
+        uses: ruby/setup-ruby-pkgs@v1
+        with:
+          ruby-version: '2.7.5'
+          bundler-cache: true
 
       # - name: Get bundle version
       #   id: version
@@ -56,9 +47,14 @@ jobs:
       # - name: ls
       #   run: ls
 
-      # - name: Generate iOS Simulator build
-      #   if: steps.cached-native-build.outputs.cache-hit != 'true'
-      #   run: npx detox build --configuration ios.sim.release
+      - name: Generate iOS Simulator build
+        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
+
+      - name: ls
+        run: ls
+
+      - name: cd
+        run: cd ios && ls
 
       # - name: cd
       #   run: cd /ios && ls
