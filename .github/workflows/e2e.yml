@@ -33,20 +33,20 @@ jobs:
       #     ruby-version: '2.7.5'
       #     bundler-cache: true
 
-      - name: test
-        id: test
-        run: cd /usr/libexec && ls
+      # - name: test
+      #   id: test
+      #   run: cd /usr/libexec && ls
 
-      - name: Get bundle version
-        id: version
-        run: echo /usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist
+      # - name: Get bundle version
+      #   id: version
+      #   run: echo /usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist
 
-      # - name: Cache Native Build
-      #   id: cached-native-build
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ios/build/Build/Products/Release-iphonesimulator/gather.app
-      #     key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
+      - name: Cache Native Build
+        id: cached-native-build
+        uses: actions/cache@v3
+        with:
+          path: ios/build/Build/Products/Release-iphonesimulator/gather.app
+          key: ios-bundle-V$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)
 
       # - name: Generate iOS Simulator build
       #   working-directory: apps/gather-react-native
