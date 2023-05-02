@@ -10,39 +10,43 @@ jobs:
   build-ios-app:
     runs-on: macos-12
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.10.0
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16.10.0
 
       # - name: Install JS dependencies
       #   env:
       #     JOBS: 'MAX'
       #   run: yarn install --immutable
 
-      - name: Install apple simulator
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
+      # - name: Install apple simulator
+      #   run: |
+      #     brew tap wix/brew
+      #     brew install applesimutils
 
-      - name: Setup ruby
-        uses: ruby/setup-ruby-pkgs@v1
-        with:
-          ruby-version: '2.7.5'
-          bundler-cache: true
+      # - name: Setup ruby
+      #   uses: ruby/setup-ruby-pkgs@v1
+      #   with:
+      #     ruby-version: '2.7.5'
+      #     bundler-cache: true
+
+      - name: test
+        id: test
+        run: which /user/libexec/PlistBuddy
 
       - name: Get bundle version
         id: version
-        run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
+        run: echo /usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist
 
-      - name: Cache Native Build
-        id: cached-native-build
-        uses: actions/cache@v3
-        with:
-          path: ios/build/Build/Products/Release-iphonesimulator/gather.app
-          key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
+      # - name: Cache Native Build
+      #   id: cached-native-build
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ios/build/Build/Products/Release-iphonesimulator/gather.app
+      #     key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
 
       # - name: Generate iOS Simulator build
       #   working-directory: apps/gather-react-native
