@@ -14,7 +14,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: print
-        run: echo $CONFIGURATION_BUILD_DIR
+        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath /ios/build
+
+      - name: print2
+        run: ls
+
+      - name: e
+        run: cd ios && ls
 
       # - uses: actions/setup-node@v3
       #   with:
