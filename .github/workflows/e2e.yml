@@ -35,7 +35,7 @@ jobs:
 
       - name: Get bundle version
         id: version
-        run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/Info.plist)" >> $GITHUB_OUTPUT
+        run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
 
       - name: Cache Native Build
         id: cached-native-build
