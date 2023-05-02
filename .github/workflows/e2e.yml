@@ -53,6 +53,9 @@ jobs:
       - name: Generate iOS Simulator build
         run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
+      - name: print
+        run: cd ios/build/Build && ls
+
       # - name: cd
       #   run: cd /ios && ls
 
