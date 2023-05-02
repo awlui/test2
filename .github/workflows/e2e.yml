@@ -33,9 +33,6 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
-      - name: Setup Cocoapods
-        run: npm run setup
-
       - name: Cache Native Build
         id: cached-native-build
         uses: actions/cache@v3
