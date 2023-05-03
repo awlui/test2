@@ -58,7 +58,7 @@ jobs:
 
       - name: Generate iOS Simulator build
         if: steps.cached-native-build.outputs.cache-hit != 'true'
-        run: detox build --configuration ios.sim.release
+        run: npx detox build --configuration ios.sim.release
 
       - name: pwd1
         run: cd ios/build/Build/Products/ && ls
