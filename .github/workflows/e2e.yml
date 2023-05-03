@@ -23,68 +23,54 @@ jobs:
       - name: run testt
         run: detox
 
-      # - name: Install apple simulator
-      #   run: |
-      #     brew tap wix/brew
-      #     brew install applesimutils
-      # - name: Setup ruby
-      #   uses: ruby/setup-ruby-pkgs@v1
-      #   with:
-      #     ruby-version: '2.7.5'
-      #     bundler-cache: true
+      - name: Install apple simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
 
-      # - name: list ios
-      #   run: applesimutils --list
+      - name: Setup ruby
+        uses: ruby/setup-ruby-pkgs@v1
+        with:
+          ruby-version: '2.7.5'
+          bundler-cache: true
 
-      # - name: Cache pods
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ios/Pods
-      #     key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+      - name: list ios
+        run: applesimutils --list
 
-      # - name: Setup Cocoapods
-      #   run: npm run setup
+      - name: Cache pods
+        uses: actions/cache@v3
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
 
-      # - name: Get bundle version
-      #   id: version
-      #   run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
+      - name: Setup Cocoapods
+        run: npm run setup
 
-      # - name: run testt
-      #   run: npx detox test --configuration ios.sim.release --loglevel trace
+      - name: Get bundle version
+        id: version
+        run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
 
-      # - name: Cache Native Build
-      #   id: cached-native-build
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ios/build/Build/Products/Release-iphonesimulator
-      #     key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
+      - name: Cache Native Build
+        id: cached-native-build
+        uses: actions/cache@v3
+        with:
+          path: ios/build/Build/Products/Release-iphonesimulator
+          key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
 
-      # - name: pwd1
-      #   run: pwd
+      - name: Generate iOS Simulator build
+        if: steps.cached-native-build.outputs.cache-hit != 'true'
+        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
-      # - name: Generate iOS Simulator build
-      #   if: steps.cached-native-build.outputs.cache-hit != 'true'
-      #   run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
+      - name: Swap JS Bundle and assets
+        run: |
+          if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
+            echo "$FILE exists!"
+          else
+            npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
+          fi
 
-      # - name: Upload production-ready build files
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: production
-      #     path: ios/build/Build/Products/Release-iphonesimulator
-
-      # - name: pwd1
-      #   run: cd ios/build/Build/Products/ && ls
-
-      # - name: Swap JS Bundle and assets
-      #   run: |
-      #     if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
-      #       echo "$FILE exists!"
-      #     else
-      #       npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
-      #     fi
-
-      # - name: run test
-      #   run: npx detox test --configuration ios.sim.release
+      - name: run test
+        run: npx detox test --configuration ios.sim.release
 
       # - name: Cleanup JS Bundle
       #   working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
