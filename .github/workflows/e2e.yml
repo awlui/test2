@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 16.10.0
 
+      - name: run initial
+        run: detox
+
       - name: Install JS dependencies
         env:
           JOBS: 'MAX'
@@ -26,7 +29,7 @@ jobs:
         run: npm i -g detox-cli
 
       - name: run testt
-        run: which detox
+        run: detox
 
       # - name: Install apple simulator
       #   run: |
