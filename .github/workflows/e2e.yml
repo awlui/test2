@@ -57,6 +57,12 @@ jobs:
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration ios.sim.release
 
+      - name: ls
+        run: cd ios/build && ls
+
+      - name: ls1
+        run: cd Build && ls && cd Products && ls && cd Release-iphonesimulator && ls
+
       - name: Swap JS Bundle and assets
         run: |
           if [[ -f ios/build/Build/Products/Release-iphonesimulator/gather.app/main.jsbundle ]]; then
