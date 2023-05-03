@@ -33,6 +33,12 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
+      - name: Cache pods
+        uses: actions/cache@v3
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
+
       - name: Setup Cocoapods
         run: npm run setup
 
@@ -51,7 +57,5 @@ jobs:
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration ios.sim.release
 
-      - name: Cleanup JS Bundle
-        working-directory: ios/build/Build/Products/Release-iphonesimulator/gather.app
-        if: steps.cached-native-build.outputs.cache-hit != 'true'
-        run: rm -rf main.jsbundle assets
+      - name: ls
+        run: cd ios && ls
