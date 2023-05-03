@@ -55,11 +55,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ios/build/Build/Products/Release-iphonesimulator
-          key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
+          key: ios-bundle-detox-V${{ steps.version.outputs.IOS_VERSION }}
 
       - name: Generate iOS Simulator build
         if: steps.cached-native-build.outputs.cache-hit != 'true'
-        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
+        run: detox build --configuration ios.sim.release
 
       - name: Swap JS Bundle and assets
         run: |
@@ -70,7 +70,7 @@ jobs:
           fi
 
       - name: run test
-        run: npx detox test --configuration ios.sim.release
+        run: detox test --configuration ios.sim.release --headless
 
       # - name: Cleanup JS Bundle
       #   working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
