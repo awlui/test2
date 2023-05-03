@@ -58,10 +58,10 @@ jobs:
 
       - name: Generate iOS Simulator build
         if: steps.cached-native-build.outputs.cache-hit != 'true'
-        run: npx detox build --configuration ios.sim.release
+        run: xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build
 
-      - name: pwd
-        run: cd ios/build/Build/Products/Release-iphonesimulator && ls
+      - name: pwd1
+        run: cd ios/build/Build/Products/ && ls
 
       - name: Swap JS Bundle and assets
         run: |
