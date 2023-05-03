@@ -18,7 +18,7 @@ jobs:
           node-version: 16.10.0
 
       - name: install
-        run: npm i -g detox-cli
+        run: npm install detox --save-dev && npm i -g detox-cli
 
       - name: run testt
         run: detox
