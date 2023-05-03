@@ -12,12 +12,12 @@ module.exports = {
   apps: {
     'ios.debug': {
       type: 'ios.app',
-      binaryPath: '/ios/build/Build/Products/Debug-iphonesimulator/YourAwesomeProject.app',
+      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/YourAwesomeProject.app',
       build: 'xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
     },
     'ios.release': {
       type: 'ios.app',
-      binaryPath: '/ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app',
+      binaryPath: 'ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app',
       build: 'xcodebuild -workspace ios/YourAwesomeProject.xcworkspace -scheme YourAwesomeProject -configuration Release -sdk iphonesimulator -derivedDataPath ios/build'
     },
     'android.debug': {
