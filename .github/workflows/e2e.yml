@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: 16.10.0
 
-      - name: run initial
-        run: detox
-
       - name: Install JS dependencies
         env:
           JOBS: 'MAX'
