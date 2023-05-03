@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 16.10.0
 
+      - name: check
+        run: applesimutils --list --byType "iPhone 13"
+
       - name: install
         run: npm install detox --save-dev && npm i -g detox-cli
 
@@ -72,7 +75,7 @@ jobs:
           fi
 
       - name: run test
-        run: detox test --configuration ios.sim.release --headless
+        run: detox test --configuration ios.sim.release --loglevel trace
 
       # - name: Cleanup JS Bundle
       #   working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app

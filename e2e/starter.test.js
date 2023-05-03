@@ -1,6 +1,8 @@
 describe('Example', () => {
   beforeAll(async () => {
+    console.log("RAN?")
     await device.launchApp();
+    console.log("DONE")
   });
 
   beforeEach(async () => {
