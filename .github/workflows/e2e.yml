@@ -17,11 +17,6 @@ jobs:
         with:
           node-version: 16.10.0
 
-      - name: Install JS dependencies
-        env:
-          JOBS: 'MAX'
-        run: yarn install --immutable
-
       - name: install
         run: npm i -g detox-cli
 
