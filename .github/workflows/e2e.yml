@@ -26,7 +26,7 @@ jobs:
         run: npm i -g detox-cli
 
       - name: run testt
-        run: npx detox test --configuration ios.sim.release --loglevel trace
+        run: npm test
 
       # - name: Install apple simulator
       #   run: |

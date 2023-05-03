@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest",
+    "test": "detox test --configuration ios.sim.release --loglevel trace",
     "setup": "cd ios && bundle exec pod install && cd .."
   },
   "dependencies": {
