@@ -51,16 +51,6 @@ jobs:
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration ios.sim.release
 
-      - name: Swap JS Bundle and assets
-        run: |
-          if [[ -f ios/build/Build/Products/Release-iphonesimulator/gather.app/main.jsbundle ]]; then
-            echo "$FILE exists!"
-          else
-            npm run build:compile
-            cp /tmp/output.bundle ios/build/Build/Products/Release-iphonesimulator/gather.app/main.jsbundle
-            cp /tmp/output.assets/assets ios/build/Build/Products/Release-iphonesimulator/gather.app/assets
-          fi
-
       - name: Cleanup JS Bundle
         working-directory: ios/build/Build/Products/Release-iphonesimulator/gather.app
         if: steps.cached-native-build.outputs.cache-hit != 'true'
