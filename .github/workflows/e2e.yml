@@ -32,6 +32,9 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
+      - name: list ios
+        run: applesimutils --list
+
       - name: Cache pods
         uses: actions/cache@v3
         with:
@@ -77,7 +80,7 @@ jobs:
           fi
 
       - name: run test
-        run: detox test --configuration ios.sim.release
+        run: npx detox test --configuration ios.sim.release
 
       - name: Cleanup JS Bundle
         working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
