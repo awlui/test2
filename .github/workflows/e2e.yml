@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: 16.10.0
 
-      - name: check
-        run: applesimutils --list --byType "iPhone 13"
-
       - name: install
         run: npm install detox --save-dev && npm i -g detox-cli
 
@@ -39,6 +36,9 @@ jobs:
 
       - name: list ios
         run: applesimutils --list
+
+      - name: check
+        run: applesimutils --list --byType "iPhone 13"
 
       - name: Cache pods
         uses: actions/cache@v3
