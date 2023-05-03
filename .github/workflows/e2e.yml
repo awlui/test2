@@ -49,7 +49,7 @@ jobs:
         id: cached-native-build
         uses: actions/cache@v3
         with:
-          path: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
+          path: ios/build/Build/Products/Release-iphonesimulator
           key: ios-bundle-V${{ steps.version.outputs.IOS_VERSION }}
 
       - name: pwd1
@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: production
-          path: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
+          path: ios/build/Build/Products/Release-iphonesimulator
 
       - name: pwd1
         run: cd ios/build/Build/Products/ && ls
