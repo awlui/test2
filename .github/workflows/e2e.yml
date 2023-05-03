@@ -75,6 +75,10 @@ jobs:
           else
             npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
           fi
+
+      - name: run test
+        run: detox test --configuration ios.sim.release
+
       - name: Cleanup JS Bundle
         working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
         if: steps.cached-native-build.outputs.cache-hit != 'true'
