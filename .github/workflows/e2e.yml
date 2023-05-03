@@ -48,6 +48,9 @@ jobs:
         id: version
         run: echo "IOS_VERSION=$(/usr/libexec/PlistBuddy -c "print :CFBundleVersion" ./ios/YourAwesomeProject/Info.plist)" >> $GITHUB_OUTPUT
 
+      - name: run testt
+        run: npx detox test --configuration ios.sim.release --loglevel trace
+
       - name: Cache Native Build
         id: cached-native-build
         uses: actions/cache@v3
