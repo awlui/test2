@@ -6,6 +6,7 @@ describe('Example', () => {
   });
 
   beforeEach(async () => {
+    console.log("HAI")
     await device.reloadReactNative();
   });
 
