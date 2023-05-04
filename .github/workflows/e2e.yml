@@ -40,6 +40,9 @@ jobs:
       - name: check
         run: applesimutils --list --byType "iPhone 13"
 
+      - name: check booted 0
+        run: xcrun simctl boot 53FBFB14-B98C-40BA-A020-EECFE78E29C8
+
       - name: check booted
         run: xcrun simctl list
 
@@ -77,10 +80,10 @@ jobs:
             npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
           fi
 
-      - name: check
-        run: |
-          xcrun simctl boot B8571236-F4CB-4DE5-91FE-BA9E126A4859
-          xcrun simctl list
+      # - name: check
+      #   run: |
+      #     xcrun simctl boot 53FBFB14-B98C-40BA-A020-EECFE78E29C8
+      #     xcrun simctl list
 
       - name: run test
         run: detox test --configuration ios.sim.release --loglevel trace
