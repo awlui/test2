@@ -78,7 +78,9 @@ jobs:
           fi
 
       - name: check
-        run: /usr/bin/xcrun simctl bootstatus B8571236-F4CB-4DE5-91FE-BA9E126A4859
+        run: |
+          xcrun simctl boot B8571236-F4CB-4DE5-91FE-BA9E126A4859
+          xcrun simctl list
 
       - name: run test
         run: detox test --configuration ios.sim.release --loglevel trace
