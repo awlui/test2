@@ -74,6 +74,9 @@ jobs:
             npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
           fi
 
+      - name: check
+        run: /usr/bin/xcrun simctl bootstatus B8571236-F4CB-4DE5-91FE-BA9E126A4859
+
       - name: run test
         run: detox test --configuration ios.sim.release --loglevel trace
 
