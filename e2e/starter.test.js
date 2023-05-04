@@ -11,6 +11,6 @@ describe('Example', () => {
 
   it('should have welcome screen', async () => {
     // await expect(element(by.id('welcome'))).toBeVisible();
-    expect(true).toBe(true);
+    await expect(element(by.text('Step Onez'))).toBeVisible();
   });
 });
