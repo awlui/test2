@@ -3,9 +3,6 @@ name: Build and test iOS App
 on:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 jobs:
   build-ios-app:
     runs-on: macos-12
@@ -84,7 +81,12 @@ jobs:
       #     xcrun simctl list
 
       - name: run test
-        run: detox test --configuration ios.sim.release --loglevel trace
+        run: detox test --configuration ios.sim.release --loglevel trace --record-logs all
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: debug-artifact
+          path: ${{ github.workspace }}/artifacts/**/*
 
       # - name: Cleanup JS Bundle
       #   working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
