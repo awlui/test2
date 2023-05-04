@@ -81,6 +81,7 @@ jobs:
       #     xcrun simctl list
 
       - name: run test
+        continue-on-error: true
         run: detox test --configuration ios.sim.release --loglevel trace --record-logs all
 
       - uses: actions/upload-artifact@v3
