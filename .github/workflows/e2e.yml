@@ -34,11 +34,11 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
-      - name: list ios
-        run: applesimutils --list
-
       - name: check
         run: applesimutils --list --byType "iPhone 13"
+
+      - name: open sim
+        run: open -a Simulator
 
       - name: check booted 0
         run: xcrun simctl boot 53FBFB14-B98C-40BA-A020-EECFE78E29C8
