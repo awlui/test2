@@ -40,6 +40,9 @@ jobs:
       - name: open sim
         run: open -a Simulator
 
+      - name: check booted 0
+        run: xcrun simctl boot D2C09DB6-1A6A-42FF-B27A-55689B856B4E
+
       - name: check booted
         run: xcrun simctl list
 
