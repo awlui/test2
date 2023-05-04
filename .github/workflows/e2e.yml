@@ -33,12 +33,6 @@ jobs:
       - name: check booted 0
         run: /usr/bin/xcrun simctl boot D2C09DB6-1A6A-42FF-B27A-55689B856B4E
 
-      - name: cheeek
-        run: /usr/bin/xcrun simctl bootstatus D2C09DB6-1A6A-42FF-B27A-55689B856B4E
-
-      - name: check booted
-        run: xcrun simctl list
-
       - name: Cache pods
         uses: actions/cache@v3
         with:
