@@ -27,11 +27,14 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
-      - name: check
-        run: applesimutils --list --byType "iPhone 13"
+      # - name: check
+      #   run: applesimutils --list --byType "iPhone 13"
 
-      - name: check booted 0
-        run: /usr/bin/xcrun simctl boot D2C09DB6-1A6A-42FF-B27A-55689B856B4E
+      # - name: check booted 0
+      #   run: /usr/bin/xcrun simctl boot D2C09DB6-1A6A-42FF-B27A-55689B856B4E
+
+      - name: boot
+        run: open -a Simulator
 
       - name: Cache pods
         uses: actions/cache@v3
@@ -57,13 +60,13 @@ jobs:
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: detox build --configuration ios.sim.release
 
-      - name: Swap JS Bundle and assets
-        run: |
-          if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
-            echo "$FILE exists!"
-          else
-            npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
-          fi
+      # - name: Swap JS Bundle and assets
+      #   run: |
+      #     if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
+      #       echo "$FILE exists!"
+      #     else
+      #       npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
+      #     fi
       # - name: check
       #   run: |
       #     xcrun simctl boot 53FBFB14-B98C-40BA-A020-EECFE78E29C8
