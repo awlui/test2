@@ -33,14 +33,11 @@ jobs:
           device=$(applesimutils --list --byType "iPhone 13")
           echo device_json=$device >> $GITHUB_OUTPUT
 
-      - name: t
-        run: echo ${{ steps.deviceId.outputs.device_json }}
-
       - name: check booted 0
-        run: /usr/bin/xcrun simctl boot ${{ fromJSON(steps.deviceId.outputs.stdout)[0].udid }}
+        run: /usr/bin/xcrun simctl boot ${{ fromJSON(steps.deviceId.outputs.device_json)[0].udid }}
 
       - name: check booted 1
-        run: /usr/bin/xcrun simctl bootstatus ${{ fromJSON(steps.deviceId.outputs.stdout)[0].udid }}
+        run: /usr/bin/xcrun simctl bootstatus ${{ fromJSON(steps.deviceId.outputs.device_json)[0].udid }}
 
       - name: Cache pods
         uses: actions/cache@v3
