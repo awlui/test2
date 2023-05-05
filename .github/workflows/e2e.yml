@@ -28,13 +28,14 @@ jobs:
           bundler-cache: true
 
       - name: check
+        id: deviceId
         run: applesimutils --list --byType "iPhone 13"
 
       - name: check booted 0
-        run: /usr/bin/xcrun simctl boot D2C09DB6-1A6A-42FF-B27A-55689B856B4E
+        run: /usr/bin/xcrun simctl boot ${{ fromJson(steps.deviceId.outputs.stdout)[0].udid }}
 
       - name: check booted 1
-        run: /usr/bin/xcrun simctl bootstatus D2C09DB6-1A6A-42FF-B27A-55689B856B4E
+        run: /usr/bin/xcrun simctl bootstatus ${{ fromJson(steps.deviceId.outputs.stdout)[0].udid }}
 
       - name: Cache pods
         uses: actions/cache@v3
