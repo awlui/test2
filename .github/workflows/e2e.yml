@@ -66,7 +66,7 @@ jobs:
       - name: Swap JS Bundle and assets
         run: |
           if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
-            echo "$FILE exists!"
+            echo "File exists!"
           else
             mkdir dist
             npx react-native bundle --platform ios --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/main.precompiled.jsbundle --assets-dest dist/assets
