@@ -30,8 +30,8 @@ jobs:
       - name: check
         id: deviceId
         run: |
-          device_json=$(applesimutils --list --byType "iPhone 13")
-          echo $device_json >> $GITHUB_OUTPUT
+          device=$(applesimutils --list --byType "iPhone 13")
+          echo device_json=$device >> $GITHUB_OUTPUT
 
       - name: t
         run: echo ${{ steps.deviceId.outputs.device_json }}
