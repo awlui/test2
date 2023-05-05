@@ -77,7 +77,7 @@ jobs:
           name: debug-artifact
           path: ${{ github.workspace }}/artifacts/**/*
 
-      # - name: Cleanup JS Bundle
-      #   working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
-      #   if: steps.cached-native-build.outputs.cache-hit != 'true'
-      #   run: rm -rf main.jsbundle assets
+      - name: Cleanup JS Bundle
+        working-directory: ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app
+        if: steps.cached-native-build.outputs.cache-hit != 'true'
+        run: rm -rf main.jsbundle assets
