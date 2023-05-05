@@ -1,0 +1,36 @@
+[
+  {
+    "os" : {
+      "bundlePath" : "\/Applications\/Xcode_14.2.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS.simruntime",
+      "buildversion" : "20C52",
+      "platform" : "iOS",
+      "runtimeRoot" : "\/Applications\/Xcode_14.2.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS.simruntime\/Contents\/Resources\/RuntimeRoot",
+      "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-16-2",
+      "version" : "16.2",
+      "isInternal" : false,
+      "isAvailable" : true,
+      "name" : "iOS 16.2",
+      "supportedDeviceTypes" : [
+      ]
+    },
+    "dataPath" : "\/Users\/runner\/Library\/Developer\/CoreSimulator\/Devices\/D2C09DB6-1A6A-42FF-B27A-55689B856B4E\/data",
+    "dataPathSize" : 13316096,
+    "logPath" : "\/Users\/runner\/Library\/Logs\/CoreSimulator\/D2C09DB6-1A6A-42FF-B27A-55689B856B4E",
+    "udid" : "D2C09DB6-1A6A-42FF-B27A-55689B856B4E",
+    "isAvailable" : true,
+    "deviceType" : {
+      "maxRuntimeVersion" : 4294967295,
+      "bundlePath" : "\/Applications\/Xcode_14.2.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Library\/Developer\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 13.simdevicetype",
+      "maxRuntimeVersionString" : "65535.255.255",
+      "name" : "iPhone 13",
+      "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-13",
+      "productFamily" : "iPhone",
+      "modelIdentifier" : "iPhone14,5",
+      "minRuntimeVersionString" : "15.0.0",
+      "minRuntimeVersion" : 983040
+    },
+    "deviceTypeIdentifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-13",
+    "state" : "Shutdown",
+    "name" : "iPhone 13"
+  }
+]

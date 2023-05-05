@@ -31,6 +31,9 @@ jobs:
         id: deviceId
         run: applesimutils --list --byType "iPhone 13"
 
+      - name: t
+        run: echo ${{ steps.deviceId.outputs.stdout }}
+
       - name: check booted 0
         run: /usr/bin/xcrun simctl boot ${{ fromJSON(steps.deviceId.outputs.stdout)[0].udid }}
 
