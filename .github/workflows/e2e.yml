@@ -65,6 +65,7 @@ jobs:
           if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
             echo "$FILE exists!"
           else
+            mkdir dist
             npx react-native bundle --platform ios --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/main.precompiled.jsbundle --assets-dest dist/assets
             ios/Pods/hermes-engine/destroot/bin/hermesc -O -emit-binary -output-source-map -out=dist/main.jsbundle dist/main.precompiled.jsbundle
             mv dist/main.jsbundle ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle
