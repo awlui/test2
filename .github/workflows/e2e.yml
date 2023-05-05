@@ -32,10 +32,10 @@ jobs:
         run: applesimutils --list --byType "iPhone 13"
 
       - name: check booted 0
-        run: /usr/bin/xcrun simctl boot ${{ fromJson(steps.deviceId.outputs.stdout)[0].udid }}
+        run: /usr/bin/xcrun simctl boot ${{ fromJSON(steps.deviceId.outputs.stdout)[0].udid }}
 
       - name: check booted 1
-        run: /usr/bin/xcrun simctl bootstatus ${{ fromJson(steps.deviceId.outputs.stdout)[0].udid }}
+        run: /usr/bin/xcrun simctl bootstatus ${{ fromJSON(steps.deviceId.outputs.stdout)[0].udid }}
 
       - name: Cache pods
         uses: actions/cache@v3
