@@ -29,10 +29,10 @@ jobs:
 
       - name: check
         id: deviceId
-        run: applesimutils --list --byType "iPhone 13"
+        run: echo "test=$(applesimutils --list --byType "iPhone 13")" >> $GITHUB_OUTPUT
 
       - name: t
-        run: echo ${{ steps.deviceId.outputs.stdout }}
+        run: echo ${{ steps.deviceId.outputs.test }}
 
       - name: check booted 0
         run: /usr/bin/xcrun simctl boot ${{ fromJSON(steps.deviceId.outputs.stdout)[0].udid }}
