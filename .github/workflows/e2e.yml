@@ -62,7 +62,8 @@ jobs:
           if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
             echo "$FILE exists!"
           else
-            npx react-native bundle --entry-file index.js --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
+            npx react-native bundle --platform ios --dev false --entry-file index.js --reset-cache --minify false --bundle-output ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle --assets-dest ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
+            ios/Pods/hermes-engine/destroot/bin/hermesc -O -emit-binary -output-source-map -out=main.jsbundle.hbc main.jsbundle
           fi
       # - name: check
       #   run: |
