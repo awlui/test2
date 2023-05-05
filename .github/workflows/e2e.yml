@@ -74,10 +74,6 @@ jobs:
             mv dist/main.jsbundle ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle
             mv dist/assets ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
           fi
-      # - name: check
-      #   run: |
-      #     xcrun simctl boot 53FBFB14-B98C-40BA-A020-EECFE78E29C8
-      #     xcrun simctl list
 
       - name: run test
         run: npx detox test --configuration ios.sim.release --loglevel trace --record-logs all
