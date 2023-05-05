@@ -15,7 +15,7 @@ jobs:
           node-version: 16.10.0
 
       - name: install
-        run: npm install detox --save-dev && npm i -g detox-cli
+        run: npm install detox --save-dev
 
       - name: Install apple simulator
         run: |
@@ -65,10 +65,10 @@ jobs:
           if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
             echo "$FILE exists!"
           else
-            npx react-native bundle --platform ios --dev false --entry-file index.js --reset-cache --minify false --bundle-output main.precompiled.jsbundle --assets-dest assets
-            ios/Pods/hermes-engine/destroot/bin/hermesc -O -emit-binary -output-source-map -out=main.jsbundle main.precompiled.jsbundle
-            mv main.jsbundle ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle
-            mv assets ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
+            npx react-native bundle --platform ios --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/main.precompiled.jsbundle --assets-dest dist/assets
+            ios/Pods/hermes-engine/destroot/bin/hermesc -O -emit-binary -output-source-map -out=dist/main.jsbundle dist/main.precompiled.jsbundle
+            mv dist/main.jsbundle ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle
+            mv dist/assets ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/assets
           fi
       # - name: check
       #   run: |
