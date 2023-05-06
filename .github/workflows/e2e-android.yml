@@ -31,7 +31,9 @@ jobs:
           cache: 'gradle'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        run: |
+          touch ~/.android/repositories.cfg
+          brew install --cask android-sdk
 
       - name: Create bundle
         run: |
