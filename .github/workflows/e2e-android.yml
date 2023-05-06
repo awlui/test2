@@ -36,6 +36,9 @@ jobs:
       - name: Setup Android SDK
         run: sudo apt update && sudo apt install android-sdk
 
+      - name: d
+        run: which sdkmanager
+
       - name: Create bundle
         run: |
           $ANDROID_SDK_ROOT/tools/bin/sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
