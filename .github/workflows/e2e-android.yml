@@ -30,6 +30,9 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: print
+        run: java --version
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
