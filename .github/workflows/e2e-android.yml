@@ -1,0 +1,37 @@
+name: Build Android App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.10.0
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: js-dep-${{ hashFiles('package-lock.json') }}
+
+      - name: install
+        run: npm install
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Create bundle
+        run: emulator -list-avds

@@ -83,7 +83,7 @@ jobs:
           fi
 
       - name: prep detox
-        run: npx detox clean-framework-cache && npx detox build-framework-cache
+        run: npx detox rebuild-framework-cache
 
       - name: run test
         run: npx detox test --configuration ios.sim.release --loglevel trace --record-logs all
