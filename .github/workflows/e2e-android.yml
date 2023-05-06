@@ -34,7 +34,7 @@ jobs:
         run: java -version
 
       - name: Setup Android SDK
-        run: brew install --cask android-sdk
+        run: sudo apt update && sudo apt install android-sdk
 
       - name: Create bundle
         run: |
