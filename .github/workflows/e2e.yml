@@ -35,14 +35,12 @@ jobs:
           bundler-cache: true
 
       - name: Get device UDID
-        description: 'Fetch the device UDID'
         id: deviceId
         run: |
           device=$(applesimutils --list --byType "iPhone 13")
           echo device_json=$device >> $GITHUB_OUTPUT
 
       - name: Boot up sim
-        description: 'Initializes simulator and waits for boot to complete'
         run: |
           deviceUDID=${{ fromJSON(steps.deviceId.outputs.device_json)[0].udid }}
           /usr/bin/xcrun simctl boot $deviceUDID
