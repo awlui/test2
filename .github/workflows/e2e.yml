@@ -15,12 +15,13 @@ jobs:
           node-version: 16.10.0
 
       - name: install
-        run: npm install detox --save-dev
+        run: npm install
 
       - name: Install apple simulator
         run: |
           brew tap wix/brew
           brew install applesimutils
+
       - name: Setup ruby
         uses: ruby/setup-ruby-pkgs@v1
         with:
@@ -33,11 +34,11 @@ jobs:
           device=$(applesimutils --list --byType "iPhone 13")
           echo device_json=$device >> $GITHUB_OUTPUT
 
-      - name: check booted 0
-        run: /usr/bin/xcrun simctl boot ${{ fromJSON(steps.deviceId.outputs.device_json)[0].udid }}
-
-      - name: check booted 1
-        run: /usr/bin/xcrun simctl bootstatus ${{ fromJSON(steps.deviceId.outputs.device_json)[0].udid }}
+      - name: Boot up sim
+        run: |
+          deviceUDID=${{ fromJSON(steps.deviceId.outputs.device_json)[0].udid }}
+          /usr/bin/xcrun simctl boot $deviceUDID
+          /usr/bin/xcrun simctl bootstatus $deviceUDID
 
       - name: Cache pods
         uses: actions/cache@v3
@@ -66,7 +67,7 @@ jobs:
       - name: Swap JS Bundle and assets
         run: |
           if [[ -f ios/build/Build/Products/Release-iphonesimulator/YourAwesomeProject.app/main.jsbundle ]]; then
-            echo "File exists!"
+            echo "js build unnecessary"
           else
             mkdir dist
             npx react-native bundle --platform ios --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/main.precompiled.jsbundle --assets-dest dist/assets
