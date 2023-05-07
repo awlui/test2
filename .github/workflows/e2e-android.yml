@@ -65,7 +65,7 @@ jobs:
         run: $ANDROID_HOME/emulator/emulator -list-avds
 
       - name: d2
-        run: $ANDROID_HOME/emulator/emulator -noaudio -no-window @testAVD
+        run: QT_QPA_PLATFORM=xcb $ANDROID_HOME/emulator/emulator -noaudio -no-window @testAVD
 
       - name: Create bundle
         run: |
