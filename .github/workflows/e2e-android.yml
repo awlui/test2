@@ -43,6 +43,8 @@ jobs:
           export ANDROID_SDK=$ANDROID_HOME/cmdline-tools
           export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:${ANDROID_SDK}/tools/bin:${ANDROID_SDK}/platform-tools:$PATH
           sdkmanager --list | grep system-images
+          sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
+          echo "no" | avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-31;google_apis_playstore;x86_64" --tag "google_apis_playstore" --abi "x86_64"
 
       - name: d
         run: |
