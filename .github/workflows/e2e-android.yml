@@ -49,7 +49,7 @@ jobs:
 
       - name: d
         run: |
-          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n Pixel_API_28_AOSP -d pixel --package "system-images;android-32;google_apis;x86_64"
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n TestAVD -d pixel --package "system-images;android-32;google_apis;x86_64"
 
       - name: Create bundle
         run: |
