@@ -39,18 +39,8 @@ jobs:
       - name: ls
         run: |
           cd $ANDROID_HOME
+          cd tools/bin
           ls
-          echo *** cmdline
-          cd cmdline-tools
-          ls
-          echo *** tools
-          cd ../tools
-          ls
-          echo *** platform-tools
-          cd ../platform-tools
-          ls
-
-          export cd
 
       - name: i
         run: export PATH=$ANDROID_HOME/tools/bin:$PATH
