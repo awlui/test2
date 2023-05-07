@@ -50,7 +50,7 @@ jobs:
           $ANDROID_HOME/tools/bin/sdkmanager --list | grep system-images
       - name: b
         run: |
-          $ANDROID_HOME/tools/bin/sdkmanager --licenses
+          yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
           $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
 
       - name: c
