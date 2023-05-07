@@ -59,7 +59,10 @@ jobs:
 
       - name: d
         run: |
+          cd $ANDROID_HOME/cmdline-tools/latest/bin
+          ls
           echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-31;google_apis_playstore;x86_64"
+
           $ANDROID_HOME/cmdline-tools/latest/bin/emulator -list-avds
           $ANDROID_HOME/cmdline-tools/latest/bin/emulator @TestAVD
 
