@@ -40,7 +40,7 @@ jobs:
         run: |
           cd $ANDROID_HOME
           ls
-          export ANDROID_SDK=$ANDROID_HOME/cmdline-tools/latest/bin
+          export ANDROID_SDK=$ANDROID_HOME/cmdline-tools
           export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:${ANDROID_SDK}/tools/bin:${ANDROID_SDK}/platform-tools:$PATH
           sdkmanager --list | grep system-images
 
