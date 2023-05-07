@@ -38,6 +38,7 @@ jobs:
 
       - name: ls
         run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-32;google_apis;x86_64"
 
       - name: d
         run: |
