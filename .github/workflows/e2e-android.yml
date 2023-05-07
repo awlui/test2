@@ -63,7 +63,8 @@ jobs:
           ls
           echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-31;google_apis_playstore;x86_64"
           emulator/emulator -list-avds
-          apt-get install libpulse0:i386
+          sudo apt-get update
+          sudo apt-get install libpulse0:i386
           $ANDROID_HOME/emulator/emulator -list-avds
           $ANDROID_HOME/emulator/emulator @testAVD
 
