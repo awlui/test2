@@ -23,9 +23,6 @@ jobs:
       - name: install
         run: npm install
 
-      - name: search
-        run: apt list libpulse*
-
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
@@ -59,6 +56,10 @@ jobs:
       - name: c
         run: |
           $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
+      - name: install pulse
+        run: |
+          sudo apt-get install libpulse-java/jammy
 
       - name: d
         run: |
