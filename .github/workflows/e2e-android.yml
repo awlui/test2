@@ -52,16 +52,19 @@ jobs:
 
           export cd
 
+      - name: i
+        run: export PATH=$ANDROID_HOME/tools/bin:$PATH
+
       - name: a
         run: |
-          $ANDROID_HOME/sdkmanager --list | grep system-images
+          sdkmanager --list | grep system-images
       - name: b
         run: |
-          $ANDROID_HOME/sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
+          sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
 
       - name: c
         run: |
-          $ANDROID_HOME/sdkmanager --licenses
+          sdkmanager --licenses
 
       - name: d
         run: |
