@@ -59,12 +59,13 @@ jobs:
 
       - name: d
         run: |
-          cd $ANDROID_HOME
-          ls
           echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-31;google_apis_playstore;x86_64"
-          emulator/emulator -list-avds
-          $ANDROID_HOME/emulator/emulator -list-avds
-          $ANDROID_HOME/emulator/emulator -noaudio @testAVD
+
+      - name: d1
+        run: emulator/emulator -list-avds
+
+      - name: d2
+        run: $ANDROID_HOME/emulator/emulator -noaudio @testAVD
 
       - name: Create bundle
         run: |
