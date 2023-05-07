@@ -23,6 +23,9 @@ jobs:
       - name: install
         run: npm install
 
+      - name: search
+        run: apt list libpulse*
+
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
