@@ -38,11 +38,9 @@ jobs:
 
       - name: ls
         run: |
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager build-tools 30
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager platform 30
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-30;google_apis;x86"
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-30;google_apis;x86_64"
+          export ANDROID_SDK=$ANDROID_HOME/cmdline-tools/latest/bin
+          export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:${ANDROID_SDK}/tools/bin:${ANDROID_SDK}/platform-tools:$PATH
+          sdkmanager --list | grep system-images
 
       - name: d
         run: |
