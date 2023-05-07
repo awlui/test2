@@ -55,6 +55,7 @@ jobs:
           sdkmanager --list | grep system-images
           sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
           echo "no" | sdkmanager --licenses
+          yes | sudo sdkmanager --licenses
           echo "no" | avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-31;google_apis_playstore;x86_64" --tag "google_apis_playstore" --abi "x86_64"
 
       - name: d
