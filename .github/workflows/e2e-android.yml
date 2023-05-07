@@ -50,10 +50,17 @@ jobs:
           cd ../platform-tools
           ls
 
-          export cd 
-          export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:$PATH
+          export cd
+
+      - name: a
+        run: |
           $ANDROID_HOME/sdkmanager --list | grep system-images
+      - name: b
+        run: |
           $ANDROID_HOME/sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
+
+      - name: c
+        run: |
           $ANDROID_HOME/sdkmanager --licenses
 
       - name: d
