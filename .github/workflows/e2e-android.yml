@@ -55,6 +55,9 @@ jobs:
       - name: i
         run: export PATH=$ANDROID_HOME/tools/bin:$PATH
 
+      - name: c
+        run: find . -name "sdkmanager"
+
       - name: a
         run: |
           sdkmanager --list | grep system-images
