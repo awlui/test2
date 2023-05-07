@@ -54,7 +54,7 @@ jobs:
           export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:$PATH
           sdkmanager --list | grep system-images
           sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
-          yes | sudo $ANDROID_HOME/sdkmanager --licenses
+          yes | $ANDROID_HOME/sdkmanager --licenses
           echo "no" | avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-31;google_apis_playstore;x86_64" --tag "google_apis_playstore" --abi "x86_64"
 
       - name: d
@@ -63,10 +63,6 @@ jobs:
           $ANDROID_HOME/cmdline-tools/latest/bin/emulator -list-avds
           $ANDROID_HOME/cmdline-tools/latest/bin/emulator @TestAVD
           ls
-
-      - name: d
-        run: |
-          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n TestAVD -d pixel --package "system-images;android-32;google_apis;x86_64"
 
       - name: Create bundle
         run: |
