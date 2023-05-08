@@ -74,6 +74,8 @@ jobs:
       - name: waitfor
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
+          $ANDROID_HOME/emulator/emulator -verbose -no-audio -no-boot-anim -read-only -port 16802 @testAVD
+          $ANDROID_HOME/platform-tools/adb" -s emulator-16802 wait-for-device
 
       - name: run build
         run: npx detox build --configuration android.emu.release
