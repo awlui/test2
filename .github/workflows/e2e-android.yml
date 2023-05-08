@@ -56,6 +56,7 @@ jobs:
       - name: c
         run: |
           $ANDROID_HOME/tools/bin/sdkmanager --licenses
+          sudo apt install qemu-kvm
 
       - name: d
         run: |
