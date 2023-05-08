@@ -51,7 +51,7 @@ jobs:
       - name: b
         run: |
           yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-          $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-30;google_apis_playstore;x86 "
+          $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-30;google_apis;x86"
 
       - name: c
         run: |
@@ -59,7 +59,7 @@ jobs:
 
       - name: d
         run: |
-          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-30;google_apis_playstore;x86 "
+          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-30;google_apis;x86"
 
       - name: d1
         run: $ANDROID_HOME/emulator/emulator -list-avds
@@ -69,5 +69,5 @@ jobs:
 
       - name: Create bundle
         run: |
-          $ANDROID_HOME_ROOT/tools/bin/sdkmanager --install "system-images;android-30;google_apis_playstore;x86 "
-          echo "no" | $ANDROID_HOME_ROOT/tools/bin/avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-30;google_apis_playstore;x86 " --tag "google_apis_playstore" --abi "x86_64"
+          $ANDROID_HOME_ROOT/tools/bin/sdkmanager --install "system-images;android-30;google_apis;x86"
+          echo "no" | $ANDROID_HOME_ROOT/tools/bin/avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-30;google_apis;x86"
