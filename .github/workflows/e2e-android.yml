@@ -71,7 +71,7 @@ jobs:
           sudo apt-get install libpulse0
 
       - name: waitfor
-        run: $ANDROID_HOME/emulator/emulator -avd testAVD
+        run: $ANDROID_HOME/emulator/emulator -no-window -avd testAVD
 
       - name: run build
         run: npx detox build --configuration android.emu.release
