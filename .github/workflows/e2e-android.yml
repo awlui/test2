@@ -69,6 +69,9 @@ jobs:
       - name: dl
         run: sudo apt-get install libpulse0
 
+      - name: waitfor
+        run: $ANDROID_HOME/platform-tools/adb wait-for-device
+
       - name: run build
         run: npx detox build --configuration android.emu.release
 
