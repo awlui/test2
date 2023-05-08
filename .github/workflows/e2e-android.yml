@@ -74,7 +74,7 @@ jobs:
       - name: test
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
-          QT_QPA_PLATFORM=offscreen $ANDROID_HOME/emulator/emulator -verbose -no-audio -no-window -no-boot-anim @testAVD
+          sudo QT_QPA_PLATFORM=offscreen $ANDROID_HOME/emulator/emulator -verbose -no-audio -no-window -no-boot-anim @testAVD
           $ANDROID_HOME/platform-tools/adb wait-for-device
       - name: run build
         run: npx detox build --configuration android.emu.release
