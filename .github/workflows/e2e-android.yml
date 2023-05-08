@@ -80,7 +80,7 @@ jobs:
         run: npx detox build --configuration android.emu.release
 
       - name: run test
-        run: npx detox test --configuration android.emu.release --loglevel trace --record-logs all
+        run: export QT_QPA_PLATFORM=offscreen npx detox test --configuration android.emu.release --loglevel trace --record-logs all
 
       # - name: Create bundle
       #   run: |
