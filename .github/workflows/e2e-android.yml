@@ -67,6 +67,9 @@ jobs:
       # - name: d2
       #   run: $ANDROID_HOME/emulator/emulator -noaudio -no-window -qemu -machine virt @testAVD
 
+      - name: run build
+        run: npx detox build --configuration android.emu.release
+
       - name: run test
         run: npx detox test --configuration android.emu.release --loglevel trace --record-logs all
 
