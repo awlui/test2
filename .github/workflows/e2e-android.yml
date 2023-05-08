@@ -59,7 +59,7 @@ jobs:
 
       - name: d
         run: |
-          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-30;default;arm64-v8a"
+          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-30;default;arm64-v8a" --tag "google_apis_playstore"
 
       - name: d1
         run: $ANDROID_HOME/emulator/emulator -list-avds
