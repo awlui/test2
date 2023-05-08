@@ -76,6 +76,9 @@ jobs:
           sudo apt install libxcb-xkb1
           sudo apt install libxkbcommon-x11-0
 
+      - name: set
+        run: export QT_QPA_PLATFORM=offscreen
+
       - name: run build
         run: npx detox build --configuration android.emu.release
 
