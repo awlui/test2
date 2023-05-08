@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-android-app:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -60,10 +60,7 @@ jobs:
 
       - name: d
         run: |
-          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-31;google_apis_playstore;x86_64"
-
-      - name: d0.5
-        run: $ANDROID_HOME/emulator/emulator -accel-check
+          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-29;default;x86"
 
       - name: d1
         run: $ANDROID_HOME/emulator/emulator -list-avds
@@ -73,5 +70,5 @@ jobs:
 
       - name: Create bundle
         run: |
-          $ANDROID_HOME_ROOT/tools/bin/sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
-          echo "no" | $ANDROID_HOME_ROOT/tools/bin/avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-31;google_apis_playstore;x86_64" --tag "google_apis_playstore" --abi "x86_64"
+          $ANDROID_HOME_ROOT/tools/bin/sdkmanager --install "system-images;android-29;default;x86"
+          echo "no" | $ANDROID_HOME_ROOT/tools/bin/avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-29;default;x86" --tag "google_apis_playstore" --abi "x86_64"
