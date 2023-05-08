@@ -51,7 +51,7 @@ jobs:
       - name: b
         run: |
           yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-          $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-31;google_apis_playstore;x86_64"
+          $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;default;x86"
 
       - name: c
         run: |
