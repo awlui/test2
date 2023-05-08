@@ -69,7 +69,6 @@ jobs:
       - name: dl
         run: |
           sudo apt-get install libpulse0
-          sudo apt-get install qt5-default
 
       - name: waitfor
         run: $ANDROID_HOME/emulator/emulator -avd testAVD
