@@ -59,7 +59,7 @@ jobs:
 
       - name: d
         run: |
-          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-30;aosp_atd;arm64-v8a" --tag "default"
+          echo no | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-30;aosp_atd;arm64-v8a" --tag "aosp_atd"
 
       - name: d1
         run: $ANDROID_HOME/emulator/emulator -list-avds
