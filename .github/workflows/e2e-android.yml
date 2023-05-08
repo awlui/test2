@@ -73,7 +73,7 @@ jobs:
       - name: waitfor
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
-          $ANDROID_HOME/emulator/emulator -no-window -avd testAVD
+          $ANDROID_HOME/emulator/emulator -no-window -noaudio -avd testAVD
 
       - name: run build
         run: npx detox build --configuration android.emu.release
