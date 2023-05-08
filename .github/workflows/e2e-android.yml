@@ -67,7 +67,7 @@ jobs:
       # - name: d2
       #   run: $ANDROID_HOME/emulator/emulator -noaudio -no-window -qemu -machine virt @testAVD
       - name: dl
-        run: apt-get install libpulse0
+        run: sudo apt-get install libpulse0
 
       - name: run build
         run: npx detox build --configuration android.emu.release
