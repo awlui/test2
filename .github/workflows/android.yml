@@ -48,6 +48,9 @@ jobs:
       - name: Generate android Simulator build
         run: npx detox build --configuration android.emu.release
 
+      - name: start adb
+        run: $ANDROID_HOME/platform-tools/adb start-server
+
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
