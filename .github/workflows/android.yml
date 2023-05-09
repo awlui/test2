@@ -38,6 +38,13 @@ jobs:
           ruby-version: '2.7.5'
           bundler-cache: true
 
+      - name: Cache Native Build
+        id: cached-native-build
+        uses: actions/cache@v3
+        with:
+          path: android/app/build/outputs/apk/release
+          key: android-bundle-${{hashFiles('package-lock.json')}}
+
       - name: Generate android Simulator build
         run: npx detox build --configuration android.emu.release
 
