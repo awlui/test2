@@ -1,0 +1,87 @@
+name: Build Android App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-android-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.10.0
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: android-js-dep-${{ hashFiles('package-lock.json') }}
+
+      - name: install
+        run: npm install
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: print
+        run: java -version
+
+      - name: Setup Android SDK
+        run: sudo apt update && sudo apt install android-sdk
+
+      - name: ls
+        run: |
+          cd $ANDROID_HOME
+          cd tools/bin
+          ls
+
+      - name: i
+        run: export PATH=$ANDROID_HOME/tools/bin:$PATH
+
+      - name: a
+        run: |
+          $ANDROID_HOME/tools/bin/sdkmanager --list | grep system-images
+      - name: b
+        run: |
+          yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+          $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-27;default;arm64-v8a"
+
+      - name: c
+        run: |
+          $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
+      - name: d
+        run: |
+          echo no | sudo $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-27;default;arm64-v8a" --tag "default"
+
+      - name: d1
+        run: sudo $ANDROID_HOME/emulator/emulator -list-avds
+
+      - name: dl
+        run: |
+          sudo apt-get install libpulse0
+          sudo apt-get install libxcb-xinerama0
+          sudo apt-get install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 libegl1-mesa
+
+      - name: test
+        run: |
+          sudo $ANDROID_HOME/platform-tools/adb start-server
+          sudo QT_QPA_PLATFORM=offscreen $ANDROID_HOME/emulator/emulator -avd @testAVD -verbose -qemu -machine virt -no-audio -no-window -no-boot-anim
+          sudo $ANDROID_HOME/platform-tools/adb wait-for-device
+      - name: run build
+        run: npx detox build --configuration android.emu.release
+
+      - name: run test
+        run: npx detox test --configuration android.emu.release --loglevel trace --record-logs all
+
+      # - name: Create bundle
+      #   run: |
+      #     $ANDROID_HOME_ROOT/tools/bin/sdkmanager --install "system-images;android-27;default;arm64-v8a"
+      #     echo "no" | $ANDROID_HOME_ROOT/tools/bin/avdmanager --verbose create avd --force --name "my_android_31" --package "system-images;android-27;default;arm64-v8a" --tag "google_apis_playstore"
