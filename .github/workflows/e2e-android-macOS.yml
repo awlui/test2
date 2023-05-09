@@ -1,11 +1,11 @@
-name: Build Android App
+name: Build Android App with mac runner
 
 on:
   workflow_dispatch:
 
 jobs:
   build-android-app:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -34,52 +34,53 @@ jobs:
         run: java -version
 
       - name: Setup Android SDK
-        run: sudo apt update && sudo apt install android-sdk
+        uses: android-actions/setup-android@v2
 
       - name: ls
         run: |
           cd $ANDROID_HOME
           cd tools/bin
           ls
-
-      - name: i
-        run: export PATH=$ANDROID_HOME/tools/bin:$PATH
-
-      - name: a
-        run: |
           $ANDROID_HOME/tools/bin/sdkmanager --list | grep system-images
-      - name: b
-        run: |
-          yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
-          $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-27;default;arm64-v8a"
 
-      - name: c
-        run: |
-          $ANDROID_HOME/tools/bin/sdkmanager --licenses
+      # - name: i
+      #   run: export PATH=$ANDROID_HOME/tools/bin:$PATH
 
-      - name: d
-        run: |
-          echo no | sudo $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-27;default;arm64-v8a" --tag "default"
+      # - name: a
+      #   run: |
+      #     $ANDROID_HOME/tools/bin/sdkmanager --list | grep system-images
+      # - name: b
+      #   run: |
+      #     yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+      #     $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-27;default;arm64-v8a"
 
-      - name: d1
-        run: sudo $ANDROID_HOME/emulator/emulator -list-avds
+      # - name: c
+      #   run: |
+      #     $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
-      - name: dl
-        run: |
-          sudo apt-get install libpulse0
-          sudo apt-get install libxcb-xinerama0
-          sudo apt-get install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 libegl1-mesa
+      # - name: d
+      #   run: |
+      #     echo no | sudo $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --name testAVD -k "system-images;android-27;default;arm64-v8a" --tag "default"
 
-      - name: test
-        run: |
-          sudo $ANDROID_HOME/platform-tools/adb start-server
-          sudo QT_QPA_PLATFORM=offscreen $ANDROID_HOME/emulator/emulator -avd @testAVD -verbose -qemu -machine virt -no-audio -no-window -no-boot-anim
-          sudo $ANDROID_HOME/platform-tools/adb wait-for-device
-      - name: run build
-        run: npx detox build --configuration android.emu.release
+      # - name: d1
+      #   run: sudo $ANDROID_HOME/emulator/emulator -list-avds
 
-      - name: run test
-        run: npx detox test --configuration android.emu.release --loglevel trace --record-logs all
+      # - name: dl
+      #   run: |
+      #     sudo apt-get install libpulse0
+      #     sudo apt-get install libxcb-xinerama0
+      #     sudo apt-get install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 libegl1-mesa
+
+      # - name: test
+      #   run: |
+      #     sudo $ANDROID_HOME/platform-tools/adb start-server
+      #     sudo QT_QPA_PLATFORM=offscreen $ANDROID_HOME/emulator/emulator -avd @testAVD -verbose -qemu -machine virt -no-audio -no-window -no-boot-anim
+      #     sudo $ANDROID_HOME/platform-tools/adb wait-for-device
+      # - name: run build
+      #   run: npx detox build --configuration android.emu.release
+
+      # - name: run test
+      #   run: npx detox test --configuration android.emu.release --loglevel trace --record-logs all
 
       # - name: Create bundle
       #   run: |
