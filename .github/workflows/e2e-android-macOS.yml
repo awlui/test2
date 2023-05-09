@@ -10,19 +10,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.10.0
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: android-js-dep-${{ hashFiles('package-lock.json') }}
-
-      - name: install
-        run: npm install
-
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
