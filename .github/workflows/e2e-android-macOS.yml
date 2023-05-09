@@ -34,7 +34,7 @@ jobs:
         run: java -version
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        run: brew install --cask android-sdk
 
       - name: ls
         run: |
