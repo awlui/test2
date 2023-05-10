@@ -55,12 +55,10 @@ jobs:
       - name: start adb
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
-          $ANDROID_HOME/emulator/emulator -avd Pixel_6_Pro_API_33 &
-          $ANDROID_HOME/platform-tools/adb wait-for-device
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 27
+          api-level: 29
           script: npx detox test --configuration android.emu.release
           avd-name: Pixel_6_Pro_API_33
