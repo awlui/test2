@@ -46,10 +46,17 @@ jobs:
           key: android-bundle-${{hashFiles('package-lock.json')}}
 
       - name: Generate android Simulator build
+        if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration android.emu.release
 
+      - name: prep detox
+        run: npx detox rebuild-framework-cache
+
       - name: start adb
-        run: $ANDROID_HOME/platform-tools/adb start-server
+        run: |
+          $ANDROID_HOME/platform-tools/adb start-server
+          $ANDROID_HOME/emulator/emulator -avd Pixel_6_Pro_API_33 &
+          $ANDROID_HOME/platform-tools/adb wait-for-device
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
