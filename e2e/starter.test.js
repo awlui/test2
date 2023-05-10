@@ -9,9 +9,9 @@ describe('Example', () => {
     await device.reloadReactNative();
   });
 
-  it('should have welcome screen', async () => {
+  it('should have welcome screeni', async () => {
     // await expect(element(by.id('welcome'))).toBeVisible();
-    await expect(element(by.text('Step One'))).toBeVisible();
+    await expect(element(by.text('Step OneI'))).toBeVisible();
   });
 
   it('should have welcome screen 2', async () => {
