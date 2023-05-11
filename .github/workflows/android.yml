@@ -61,4 +61,4 @@ jobs:
           api-level: 29
           script: npx detox test --configuration android.emu.release
           avd-name: testAVD
-          profile: pixel_6_pro
+          profile: Nexus 6
