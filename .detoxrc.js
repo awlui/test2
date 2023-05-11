@@ -29,9 +29,13 @@ module.exports = {
       ]
     },
     'android.release': {
-      type: 'android.apk',
-      binaryPath: 'android/app/build/outputs/apk/release/app-release.apk',
-      build: 'cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release',
+      type: "android.apk",
+      binaryPath: "android/app/build/outputs/apk/releaseE2E/app-releaseE2E.apk",
+      build:
+        "cd android && ./gradlew assembleReleaseE2E assembleAndroidTest -DtestBuildType=releaseE2E",
+      testBinaryPath:
+        "android/app/build/outputs/apk/androidTest/releaseE2E/app-releaseE2E-androidTest.apk",
+
     }
   },
   devices: {
