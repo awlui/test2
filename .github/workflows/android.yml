@@ -26,8 +26,10 @@ jobs:
       - name: install apktool
         run: |
           brew install apktool
-          brew install --cask android-sdk
-          find . -iname apksigner
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;30.0.3"
+          cd $ANDROID_HOME
+          cd build-tools
+          ls
 
       - name: Cache node_modules
         uses: actions/cache@v3
