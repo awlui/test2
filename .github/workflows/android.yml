@@ -27,9 +27,7 @@ jobs:
         run: |
           brew install apktool
           brew install --cask android-sdk
-
-      - name: try apksigner
-        run: apksigner
+          find . -iname apksigner
 
       - name: Cache node_modules
         uses: actions/cache@v3
@@ -72,7 +70,7 @@ jobs:
           mv dist/index.android.bundle.hbc $DECOMPILED_BUILD_DIRECTORY/assets/index.android.bundle
           rsync -a dist/assets/ $DECOMPILED_BUILD_DIRECTORY/res
           apktool b --output $ORIGINAL_APK_DIRECTORY/$APK_NAME -f -d $DECOMPILED_BUILD_DIRECTORY
-          apksigner sign --ks android/app/debug.keystore -storepass android -keypass android $ORIGINAL_APK_DIRECTORY/$APK_NAME
+          $ANDROID_HOME/apksigner sign --ks android/app/debug.keystore -storepass android -keypass android $ORIGINAL_APK_DIRECTORY/$APK_NAME
 
       - name: prep detox
         run: npx detox rebuild-framework-cache
