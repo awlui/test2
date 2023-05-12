@@ -68,7 +68,7 @@ jobs:
           mv dist/index.android.bundle.hbc $DECOMPILED_BUILD_DIRECTORY/assets/index.android.bundle
           rsync -a dist/assets/ $DECOMPILED_BUILD_DIRECTORY/res
           apktool b --output $ORIGINAL_APK_DIRECTORY/$APK_NAME -f -d $DECOMPILED_BUILD_DIRECTORY
-          $ANDROID_HOME/build-tools/33.0.2/apksigner sign --ks android/app/debug.keystore -keypass android $ORIGINAL_APK_DIRECTORY/$APK_NAME
+          echo android | $ANDROID_HOME/build-tools/33.0.2/apksigner sign --ks android/app/debug.keystore $ORIGINAL_APK_DIRECTORY/$APK_NAME
 
       - name: prep detox
         run: npx detox rebuild-framework-cache
