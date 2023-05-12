@@ -28,6 +28,9 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: install apktools
+        run: brew install apktool
+
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -51,7 +54,6 @@ jobs:
       - name: Swap JS Bundle and assets
         if: steps.cached-native-build.outputs.cache-hit == 'true'
         run: |
-          brew install apktool
           mkdir dist
           npx react-native bundle --platform android --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/index.android.bundle --assets-dest dist/assets
           node_modules/react-native/sdks/hermesc/osx-bin/hermesc -O -emit-binary -output-source-map -out=dist/index.android.bundle.hbc dist/index.android.bundle
