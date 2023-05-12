@@ -26,7 +26,7 @@ jobs:
       - name: install apktool
         run: |
           brew install apktool
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;30.0.3"
+          # $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;30.0.3"
           cd $ANDROID_HOME
           cd build-tools
           ls
