@@ -8,9 +8,9 @@ jobs:
   test:
     env:
       APK_DIRECTORY: 'android/app/build/outputs/apk'
-      RELEASE_APK_DIRECTORY: '${{APK_DIRECTORY}}/releaseE2E'
-      APK_PATH: '${{RELEASE_APK_DIRECTORY}}/app-releaseE2E.apk'
-      DECOMPILED_BUILD_DIRECTORY: '${{RELEASE_APK_DIRECTORY}}/decompiled-apk'
+      RELEASE_APK_DIRECTORY: 'android/app/build/outputs/apk/releaseE2E'
+      APK_PATH: 'android/app/build/outputs/apk/releaseE2E/app-releaseE2E.apk'
+      DECOMPILED_BUILD_DIRECTORY: 'android/app/build/outputs/apk/releaseE2E/decompiled-apk'
 
     runs-on: macos-latest
     steps:
@@ -90,8 +90,4 @@ jobs:
 
       - name: cache prep
         if: steps.cached-native-build.outputs.cache-hit != 'true'
-        run: |
-          APK_NAME=app-releaseE2E.apk
-          ORIGINAL_APK_DIRECTORY=android/app/build/outputs/apk/releaseE2E
-
-          apktool d --output decompiled-apk $ORIGINAL_APK_DIRECTORY/$APK_NAME
+        run: apktool d --output ${{DECOMPILED_BUILD_DIRECTORY}} ${{APK_PATH}}
