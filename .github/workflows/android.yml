@@ -15,7 +15,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: first
-        run: echo ${{RELEASE_APK_DIRECTORY}}
+        run: echo ${{env.RELEASE_APK_DIRECTORY}}
 
       - name: checkout
         uses: actions/checkout@v3
@@ -68,10 +68,10 @@ jobs:
           npx react-native bundle --platform android --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/index.android.bundle --assets-dest dist/assets
           node_modules/react-native/sdks/hermesc/osx-bin/hermesc -O -emit-binary -output-source-map -out=dist/index.android.bundle.hbc dist/index.android.bundle
 
-          mv dist/index.android.bundle.hbc ${{DECOMPILED_BUILD_DIRECTORY}}/assets/index.android.bundle
-          rsync -a dist/assets/ ${{DECOMPILED_BUILD_DIRECTORY}}/res
-          apktool b --output ${{APK_PATH}} -f -d ${{DECOMPILED_BUILD_DIRECTORY}}
-          echo android | $ANDROID_HOME/build-tools/33.0.2/apksigner sign --ks android/app/debug.keystore ${{APK_PATH}}
+          mv dist/index.android.bundle.hbc ${{env.DECOMPILED_BUILD_DIRECTORY}}/assets/index.android.bundle
+          rsync -a dist/assets/ ${{env.DECOMPILED_BUILD_DIRECTORY}}/res
+          apktool b --output ${{env.APK_PATH}} -f -d ${{env.DECOMPILED_BUILD_DIRECTORY}}
+          echo android | $ANDROID_HOME/build-tools/33.0.2/apksigner sign --ks android/app/debug.keystore ${{env.APK_PATH}}
 
       - name: prep detox
         run: npx detox rebuild-framework-cache
@@ -90,4 +90,4 @@ jobs:
 
       - name: cache prep
         if: steps.cached-native-build.outputs.cache-hit != 'true'
-        run: apktool d --output ${{DECOMPILED_BUILD_DIRECTORY}} ${{APK_PATH}}
+        run: apktool d --output ${{env.DECOMPILED_BUILD_DIRECTORY}} ${{env.APK_PATH}}
