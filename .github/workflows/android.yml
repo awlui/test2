@@ -23,6 +23,9 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: install apktool
+        run: brew install apktool
+
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
@@ -42,12 +45,28 @@ jobs:
         id: cached-native-build
         uses: actions/cache@v3
         with:
-          path: android/app/build/outputs/apk/release
-          key: android-bundle-${{hashFiles('package-lock.json')}}
+          path: decompiled-apk
+          key: android-bundle-${{hashFiles('android/build.gradle')}}-${{hashFiles('android/app/build.gradle')}}
 
       - name: Generate android Simulator build
         if: steps.cached-native-build.outputs.cache-hit != 'true'
         run: npx detox build --configuration android.emu.release
+
+      - name: Swap JS Bundle and assets
+        if: steps.cached-native-build.outputs.cache-hit == 'true'
+        run: |
+          APK_NAME=app-releaseE2E.apk
+          ORIGINAL_APK_DIRECTORY=android/app/build/outputs/apk/releaseE2E
+          DECOMPILED_BUILD_DIRECTORY=decompiled-apk
+
+          mkdir dist
+          mkdir -p $ORIGINAL_APK_DIRECTORY
+          npx react-native bundle --platform android --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/index.android.bundle --assets-dest dist/assets
+          node_modules/react-native/sdks/hermesc/osx-bin/hermesc -O -emit-binary -output-source-map -out=dist/index.android.bundle.hbc dist/index.android.bundle
+
+          mv dist/index.android.bundle.hbc $DECOMPILED_BUILD_DIRECTORY/assets/index.android.bundle
+          rsync -a dist/assets/ $DECOMPILED_BUILD_DIRECTORY/res
+          apktool b --output $ORIGINAL_APK_DIRECTORY/$APK_NAME -f -d $DECOMPILED_BUILD_DIRECTORY
 
       - name: prep detox
         run: npx detox rebuild-framework-cache
@@ -62,3 +81,11 @@ jobs:
           script: npx detox test --configuration android.emu.release
           avd-name: testAVD
           profile: Nexus 6
+
+      - name: cache prep
+        if: steps.cached-native-build.outputs.cache-hit != 'true'
+        run: |
+          APK_NAME=app-releaseE2E.apk
+          ORIGINAL_APK_DIRECTORY=android/app/build/outputs/apk/releaseE2E
+
+          apktool d --output decompiled-apk $ORIGINAL_APK_DIRECTORY/$APK_NAME
