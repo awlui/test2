@@ -4,11 +4,18 @@ name: EMU_test_MacOS12
 
 on:
   workflow_dispatch:
-
 jobs:
   test:
+    env:
+      APK_DIRECTORY: 'android/app/build/outputs/apk'
+      RELEASE_APK_DIRECTORY: '${{APK_DIRECTORY}}/releaseE2E'
+      APK_PATH: '${{RELEASE_APK_DIRECTORY}}/app-releaseE2E.apk'
+      DECOMPILED_BUILD_DIRECTORY: '${{RELEASE_APK_DIRECTORY}}/decompiled-apk'
+
     runs-on: macos-latest
     steps:
+      - name: first
+          echo ${{RELEASE_APK_DIRECTORY}}
       - name: checkout
         uses: actions/checkout@v3
 
@@ -46,7 +53,7 @@ jobs:
         id: cached-native-build
         uses: actions/cache@v3
         with:
-          path: decompiled-apk
+          path: android/app/build/outputs/apk
           key: android-bundle-${{hashFiles('android/build.gradle')}}-${{hashFiles('android/app/build.gradle')}}
 
       - name: Generate android Simulator build
@@ -56,19 +63,14 @@ jobs:
       - name: Swap JS Bundle and assets
         if: steps.cached-native-build.outputs.cache-hit == 'true'
         run: |
-          APK_NAME=app-releaseE2E.apk
-          ORIGINAL_APK_DIRECTORY=android/app/build/outputs/apk/releaseE2E
-          DECOMPILED_BUILD_DIRECTORY=decompiled-apk
-
           mkdir dist
-          mkdir -p $ORIGINAL_APK_DIRECTORY
           npx react-native bundle --platform android --dev false --entry-file index.js --reset-cache --minify false --bundle-output dist/index.android.bundle --assets-dest dist/assets
           node_modules/react-native/sdks/hermesc/osx-bin/hermesc -O -emit-binary -output-source-map -out=dist/index.android.bundle.hbc dist/index.android.bundle
 
-          mv dist/index.android.bundle.hbc $DECOMPILED_BUILD_DIRECTORY/assets/index.android.bundle
-          rsync -a dist/assets/ $DECOMPILED_BUILD_DIRECTORY/res
-          apktool b --output $ORIGINAL_APK_DIRECTORY/$APK_NAME -f -d $DECOMPILED_BUILD_DIRECTORY
-          echo android | $ANDROID_HOME/build-tools/33.0.2/apksigner sign --ks android/app/debug.keystore $ORIGINAL_APK_DIRECTORY/$APK_NAME
+          mv dist/index.android.bundle.hbc ${{DECOMPILED_BUILD_DIRECTORY}}/assets/index.android.bundle
+          rsync -a dist/assets/ ${{DECOMPILED_BUILD_DIRECTORY}}/res
+          apktool b --output ${{APK_PATH}} -f -d ${{DECOMPILED_BUILD_DIRECTORY}}
+          echo android | $ANDROID_HOME/build-tools/33.0.2/apksigner sign --ks android/app/debug.keystore ${{APK_PATH}}
 
       - name: prep detox
         run: npx detox rebuild-framework-cache
@@ -76,6 +78,7 @@ jobs:
       - name: start adb
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
+
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
