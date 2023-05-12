@@ -24,7 +24,11 @@ jobs:
           cache: 'gradle'
 
       - name: install apktool
-        run: brew install apktool
+        run: |
+          brew install apktool
+          brew install --cask android-sdk
+          which apksigner
+          echo hi
 
       - name: Cache node_modules
         uses: actions/cache@v3
