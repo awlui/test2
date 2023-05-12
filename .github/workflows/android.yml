@@ -15,7 +15,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: first
-          echo ${{RELEASE_APK_DIRECTORY}}
+        run: echo ${{RELEASE_APK_DIRECTORY}}
+
       - name: checkout
         uses: actions/checkout@v3
 
