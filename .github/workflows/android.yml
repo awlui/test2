@@ -70,12 +70,14 @@ jobs:
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
 
+      - name: start logger
+        run: adb logcat | grep ReactNativeJS > logcat.txt
+
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: adb logcat > logcat.txt \
-          npx detox test --configuration android.emu.release
+          script: npx detox test --configuration android.emu.release
           avd-name: testAVD
           profile: pixel_6_pro
 
