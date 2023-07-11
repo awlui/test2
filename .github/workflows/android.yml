@@ -74,9 +74,16 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: npx detox test --configuration android.emu.release
+          script: adb logcat > logcat.txt \
+          npx detox test --configuration android.emu.release
           avd-name: testAVD
           profile: pixel_6_pro
+
+      - name: Archive logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: logcat.txt
 
       - name: cache prep
         if: steps.cached-native-build.outputs.cache-hit != 'true'
